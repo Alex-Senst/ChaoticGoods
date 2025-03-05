@@ -33,7 +33,7 @@
     </div>
     <div class="container">
         <h2 class="text-center">Sign In</h2>
-        <form>
+        <form action="login.php" method="post">
             <div class="mb-3 mt-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter your username">
@@ -43,6 +43,9 @@
                 <input type="password" class="form-control" id="email" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <div class="mb-3">
+                <p class="link"><a href="registration.php">New Registration</a></p>
+            </div>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
