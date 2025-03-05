@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #A9DCB2;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -18,6 +18,7 @@ header, h2, .form-label, .text {
     margin-top: 20px;
     margin-left: 40px;
     margin-bottom: 20px;
+    font-family: 'Lucida Console', monospace;
 }
 .sidebar {
     position: fixed;
@@ -25,9 +26,11 @@ header, h2, .form-label, .text {
     right: 0;
     height: 100%;
     width: 200px;
-    background-color: black;
+    background-color: #367040;
     padding-top: 20px;
     z-index: 1000;
+    font-family: 'Lucida Console', monospace;
+    font-size: 17px;
 }
 .sidebar ul {
     list-style: none;
@@ -43,7 +46,7 @@ header, h2, .form-label, .text {
     display: block;
 }
 .sidebar ul li a:hover, .sidebar ul li a.active {
-    color: salmon;
+    color: black;
     border-radius: 5px;
 }
 .social-icons {
