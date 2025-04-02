@@ -108,6 +108,12 @@ foreach ($_SESSION['cart'] as $item) {
             <?php endif; ?>
         </div>
     </div>
+    <footer>
+        <p>2025 My Portfolio</p>
+        <p><a href="terms.html">Terms and Conditions</a></p>
+        <p><a href="privacy.html">Privacy Policy</a></p>
+        <p><a href="cookies.html">Cookies</a></p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
