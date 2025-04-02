@@ -19,11 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user-id'] ?? 0;
 
     if (!empty($name) && !empty($address) && !empty($payment)) {
-        $stmt = $conn->prepare("INSERT INTO orders (user_id, name, address, total_price, payment_method) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $con->prepare("INSERT INTO orders (user_id, name, address, total_price, payment_method) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("issds", $user_id, $name, $address, $total, $payment);
         $stmt->execute();
+        $order_id = $stmt->insert_id;
+        foreach($_SESSION['cart'] as $productID => $item){
+            $stmt = $con->prepare("INSERT INTO order_details (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("iisdi", $order_id, $productId, $item['title'], $item['price'], $item['quantity']);
+            $stmt->execute();
+        }
 
         $_SESSION['cart'] = [];
+        $_SESSION['success_message'] = "Your order has been placed successfully!";
         header("Location: success.php");
         exit();
     } else {
@@ -45,11 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
-            <li><a href="login.php">Sign In</a></li>
+
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
@@ -97,8 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 <br><br>
                 <div class="container">
-                    <button type="submit" class="btn btn-primary btn-sm btn-block" style="width: 50%; margin-left: 230px;">Place Order</button>
-                    <a href="cart.php" class="btn btn-secondary btn-sm btn-block" style="width: 50%; margin-left: 230px; margin-top: 10px;">Back to Cart</a>
+                    <button type="submit" class="btn btn-primary btn-sm btn-block" style="width: 50%; margin-left: 300px;">Place Order</button>
+                    <a href="cart.php" class="btn btn-secondary btn-sm btn-block" style="width: 50%; margin-left: 300px; margin-top: 10px;">Back to Cart</a>
                 </div>
             </form>
         </div>

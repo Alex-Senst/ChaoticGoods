@@ -36,7 +36,9 @@ $order_result = $order_stmt->get_result();
     <link rel="stylesheet" href="styles.css">
     <style>
         body h1 {
-            margin-left: 10px !important;
+            margin-left: 10px;
+            margin-top: 15px;
+            font-family: 'Papyrus', fantasy;
         }
     </style>
 </head>

@@ -88,7 +88,7 @@ foreach ($_SESSION['cart'] as $item) {
             <a href="https://twitter.com" target="_blank" class="text-light"><i class="fab fa-twitter fa-2x"></i></a>
         </div>
     </div>
-    <h2 style="text-align: center; padding-right: 220px;">My Cart</h2>
+    <h2 style="text-align: center; padding-right: 220px; padding-top: 15px;">My Cart</h2>
     <div class="container">
         <div class="text">
             <?php if (empty($_SESSION['cart'])): ?>
