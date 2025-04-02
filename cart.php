@@ -1,43 +1,43 @@
 ﻿<?php
 session_start();
+require 'db.php';
 
-// Product data (can be replaced with a database query)
-$products = [
-    1 => ['name' => 'Product 1', 'price' => 19.99],
-    2 => ['name' => 'Product 2', 'price' => 24.99],
-    3 => ['name' => 'Product 3', 'price' => 15.99]
-];
+// Initialize user session
+$user_id = isset($_SESSION['user-id']) ? $_SESSION['user-id'] : 0;
 
-// Initialize cart if not already set
+// Fetch products from database
+$products = [];
+$result = $conn->query("SELECT id, name, price FROM products");
+while ($row = $result->fetch_assoc()) {
+    $products[$row['id']] = $row;
+}
+
+// Initialize cart for user
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Handle adding products to cart
+// Add products to cart
 if (isset($_POST['add'])) {
     $productId = $_POST['add'];
     $quantity = isset($_POST['quantity'][$productId]) ? $_POST['quantity'][$productId] : 1;
 
     if (isset($products[$productId])) {
-        if (isset($_SESSION['cart'][$productId])) {
-            $_SESSION['cart'][$productId]['quantity'] += $quantity;
-        } else {
-            $_SESSION['cart'][$productId] = [
-                'name' => $products[$productId]['name'],
-                'price' => $products[$productId]['price'],
-                'quantity' => $quantity
-            ];
-        }
+        $_SESSION['cart'][$productId] = [
+            'name' => $products[$productId]['name'],
+            'price' => $products[$productId]['price'],
+            'quantity' => $quantity
+        ];
     }
 }
 
-// Handle removing products from cart
+// Remove products
 if (isset($_GET['remove'])) {
     $productId = $_GET['remove'];
     unset($_SESSION['cart'][$productId]);
 }
 
-// Calculate total cost
+// Calculate total
 $total = 0;
 $totalItems = 0;
 foreach ($_SESSION['cart'] as $item) {

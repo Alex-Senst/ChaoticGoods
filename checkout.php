@@ -1,26 +1,29 @@
 <?php
 session_start();
+require 'db.php';
 
-// Check if cart is empty
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     header("Location: cart.php");
     exit();
 }
 
-// Calculate total cost
 $total = 0;
 foreach ($_SESSION['cart'] as $item) {
     $total += $item['price'] * $item['quantity'];
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $address = $_POST['address'];
     $payment = $_POST['payment'];
+    $user_id = $_SESSION['user-id'] ?? 0;
 
     if (!empty($name) && !empty($address) && !empty($payment)) {
-        $_SESSION['cart'] = []; // Clear cart after checkout
+        $stmt = $conn->prepare("INSERT INTO orders (user_id, name, address, total_price, payment_method) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("issds", $user_id, $name, $address, $total, $payment);
+        $stmt->execute();
+
+        $_SESSION['cart'] = [];
         header("Location: success.php");
         exit();
     } else {
