@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 require 'db.php';
 
@@ -17,8 +17,26 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Add products to cart
+// If the user is not logged in, store the item data in session and redirect to login
+if (!isset($_SESSION['user-id'])) {
+    // Store the product and quantity to session for later use
+    if(isset($_POST['add'])){
+            $_SESSION['redirect_to_cart'] = [
+                'product_id' => $_POST['add'],
+                'quantity' => 1
+            ];
+    }
+
+
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
+
+
+//Add products to cart
 if (isset($_POST['add'])) {
+    
     $productId = $_POST['add'];
     $quantity = isset($_POST['quantity'][$productId]) ? $_POST['quantity'][$productId] : 1;
 
@@ -58,11 +76,11 @@ foreach ($_SESSION['cart'] as $item) {
 <body>
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="cart.php" class="active">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
-            <li><a href="login.php">Sign In</a></li>
+
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
@@ -109,10 +127,10 @@ foreach ($_SESSION['cart'] as $item) {
         </div>
     </div>
     <footer>
-        <p>2025 My Portfolio</p>
-        <p><a href="about.html">About</a></p>
+        <p>ChaoticGoods</p>
+        <p><a href="about.php">About</a></p>
         <p><a href="contact.php">Contact</a></p>
-        <p><a href="cookies.html">Cookies</a></p>
+        <p><a href="cookies.php">Cookies</a></p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

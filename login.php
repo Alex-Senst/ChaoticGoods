@@ -167,47 +167,43 @@
             $_SESSION['username'] = $username;
             $_SESSION['user-id'] = $user['id'];
 
+            if (isset($_SESSION['redirect_to_cart'])) {
+                $productId = $_SESSION['redirect_to_cart']['product_id'];
+                $quantity = $_SESSION['redirect_to_cart']['quantity'];
+    
+                // **Retrieve the product from database**
+                $query = "SELECT * FROM `products` WHERE id='$productId'";
+                $result = mysqli_query($con, $query);
+    
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $product = mysqli_fetch_assoc($result);
+    
+                    // **Use the working model**
+                    $_SESSION['cart'][$productId] = [
+                        'title' => $product['title'],
+                        'price' => $product['price'],
+                        'quantity' => $quantity
+                    ];
+                }
+    
+                // Clear session variable after adding to cart
+                unset($_SESSION['redirect_to_cart']);
+    
+                // Redirect to the cart page
+                header("Location: cart.php");
+                exit();
+            } else {
+                // Redirect to user dashboard if no product was stored
+                header("Location: user.php");
+                exit();
+            }
             // Redirect to user dashboard page
-            header("Location: user.php");
-            exit(); // Ensure script stops here
+            //header("Location: user.php");
+            //exit(); // Ensure script stops here
         } else {
             $error_message = "Incorrect Username or Password.";
         }
-    
-        
-    /*require('db.php');
-    session_start();
-    // When form submitted, check and create user session.
-    if (isset($_POST['username'])) {
-        $username = stripslashes($_REQUEST['username']);    // removes backslashes
-        $username = mysqli_real_escape_string($con, $username);
-        $password = stripslashes($_REQUEST['password']);
-        $password = mysqli_real_escape_string($con, $password);
-        // Check user is exist in the database
-        $query    = "SELECT * FROM `users` WHERE username='$username'
-                     AND password='" . md5($password) . "'";
-        $result = mysqli_query($con, $query) or die(mysql_error());
-        $rows = mysqli_num_rows($result);
-        if ($rows == 1) {
-            $user = mysqli_fetch_assoc($result);
-            $_SESSION['username'] = $username;
-            $_SESSION['user-id'] = $user['id'];
 
-            // Debugging: Check if the session variables are being set
-            //echo '<pre>';
-            //var_dump($_SESSION);
-            //echo '</pre>';
-            //exit;
-
-            // Redirect to user dashboard page
-            header("Location: user.php");
-        } else {
-            $error_message = "Incorrect Username or Password.";
-            //echo "<div class='form'>
-                  //<h3>Incorrect Username/password.</h3><br/>
-                  //<p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
-                  //</div>";
-        }*/
     } else{
 ?>
     <div class="glass-container">

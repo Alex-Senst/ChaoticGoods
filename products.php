@@ -70,11 +70,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="products.php" class="active">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
-            <li><a href="login.php">Sign In</a></li>
+
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
@@ -104,7 +104,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </div>
     </div>
-
+    <footer>
+        <p>ChaoticGoods</p>
+        <p><a href="about.php">About</a></p>
+        <p><a href="contact.php">Contact</a></p>
+        <p><a href="cookies.php">Cookies</a></p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>

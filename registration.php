@@ -32,7 +32,7 @@
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            border: 1px solid black;
+            border: 1px solid white;
         }
 
         .glass-container::before {
@@ -53,7 +53,7 @@
         }
 
         h1 {
-            color: black;
+            color: white;
             margin-top: 30px;
             margin-bottom: -20px;
         }
@@ -70,13 +70,13 @@
             border: none;
             border-radius: 10px;
             background: transparent;
-            border: 1px solid black;
-            color: black;
+            border: 1px solid white;
+            color: white;
             font-size: 13px;
         }
 
         input::placeholder {
-            color: black;
+            color: white;
             opacity: 0.5;
         }
 
@@ -89,7 +89,7 @@
             align-items: left;
             margin-top: 15px;
             font-size: 12px;
-            color: black;
+            color: white;
         }
 
         .options input {
@@ -99,13 +99,13 @@
 
         .options a {
             text-decoration: none;
-            color: black;
+            color: white;
             margin-left: auto;
         }
 
         button {
-            background: black;
-            color: black;
+            background: white;
+            color: white;
             padding: 10px;
             border: none;
             border-radius: 10px;
@@ -115,7 +115,7 @@
 
         button:hover {
             background: transparent;
-            color: black;
+            color: white;
             outline: 1px solid #fff;
         }
 
@@ -127,7 +127,7 @@
 
         #register {
             text-decoration: none;
-            color: black;
+            color: white;
             font-weight: bold;
         }
         .login-link a{

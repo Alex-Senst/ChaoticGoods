@@ -12,7 +12,7 @@
     <div class="sidebar">
         <ul>
             <li><a href="index.php" class="active">Home</a></li>
-            <li><a href="products.php">Products</a></li>
+            <li><a href="products_preview.php">Products</a></li>
             <li><a href="login.php">Sign In</a></li>
             <li><a href="registration.php">Sign Up</a></li>
         </ul>
@@ -31,7 +31,12 @@
     <div class = "content">
         <p>Hello there! We are a couple of small business owners looking to sell products to DnD lovers! Look around if you're interested!</p>
     </div>
-    
+    <footer>
+        <p>ChaoticGoods</p>
+        <p><a href="about.php">About</a></p>
+        <p><a href="contact.php">Contact</a></p>
+        <p><a href="cookies.php">Cookies</a></p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
