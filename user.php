@@ -1,11 +1,29 @@
 ﻿<?php
-    session_start();
-    if(!isset($_SESSION['user-id'])){
-        header("Location: login.php");
-        exit();
-    }
-?>
+session_start();
+if (!isset($_SESSION['user-id'])) {
+    header("Location: login.php");
+    exit();
+}
 
+require 'db.php'; // Include database connection
+
+$user_id = $_SESSION['user-id'];
+
+// Fetch user details
+$query = "SELECT username, email, shipping_address, billing_address FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Fetch order history
+$order_query = "SELECT order_date, product_name, status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+$order_stmt = $conn->prepare($order_query);
+$order_stmt->bind_param("i", $user_id);
+$order_stmt->execute();
+$order_result = $order_stmt->get_result();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +36,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+    <h1>Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
+    
     <div class="sidebar">
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -33,37 +52,45 @@
             <a href="https://twitter.com" target="_blank" class="text-light"><i class="fab fa-twitter fa-2x"></i></a>
         </div>
     </div>
-    <!--User Profile-->
+
+    <!-- User Profile -->
     <div class="container">
         <h2>Profile Information</h2>
-            <div class="text">
-                <p>Username:</p>
-                <p>Email: </p>
-                <p>Shipping Address: </p>
-                <p>Billing Address: </p>
-                <a href="changeps.html">Change Password</a></li>
-            </div>
+        <div class="text">
+            <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+            <p><strong>Shipping Address:</strong> <?php echo htmlspecialchars($user['shipping_address']); ?></p>
+            <p><strong>Billing Address:</strong> <?php echo htmlspecialchars($user['billing_address']); ?></p>
+            <a href="changeps.php">Change Password</a> |
+            <a href="edit-profile.php" class="btn btn-warning btn-sm">Edit Profile</a>
+        </div>
     </div>
+
+    <!-- Order History -->
     <div class="container">
         <h2>Order History</h2>
         <div class="text">
-            <table style="width: 100%;">
-                <tr>
-                    <td>Date 1</td>
-                    <td>Product 1</td>
-                    <td>Status 1</td>
-                    <td>
-                        <a href="reorder.html">Reorder</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Date 2</td>
-                    <td>Product 2</td>
-                    <td>Status 2</td>
-                    <td>
-                        <a href="reorder.html">Reorder</a>
-                    </td>
-                </tr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($order = $order_result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($order['order_date']); ?></td>
+                            <td><?php echo htmlspecialchars($order['product_name']); ?></td>
+                            <td><?php echo htmlspecialchars($order['status']); ?></td>
+                            <td>
+                                <a href="reorder.php?product=<?php echo urlencode($order['product_name']); ?>" class="btn btn-primary btn-sm">Reorder</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
             </table>
         </div>
     </div>
