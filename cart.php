@@ -7,11 +7,7 @@ $user_id = isset($_SESSION['user-id']) ? $_SESSION['user-id'] : 0;
 
 // Fetch products from the correct database
 $products = [];
-<<<<<<< Updated upstream
-$result = $con->query("SELECT id, title, price FROM product_catalog.products");
-=======
 $result = $con->query("SELECT id, title, price FROM products");
->>>>>>> Stashed changes
 while ($row = $result->fetch_assoc()) {
     $products[$row['id']] = $row;
 }
@@ -28,11 +24,7 @@ if (isset($_POST['add'])) {
 
     if (isset($products[$productId])) {
         $_SESSION['cart'][$productId] = [
-<<<<<<< Updated upstream
-            'title' => $products[$productId]['title'], // Use title instead of name
-=======
             'title' => $products[$productId]['title'],
->>>>>>> Stashed changes
             'price' => $products[$productId]['price'],
             'quantity' => $quantity
         ];
@@ -94,11 +86,7 @@ foreach ($_SESSION['cart'] as $item) {
                     </tr>
                     <?php foreach ($_SESSION['cart'] as $productId => $item): ?>
                         <tr>
-<<<<<<< Updated upstream
                             <td><a href="details.php?id=<?php echo $productId; ?>"> <?php echo $item['title']; ?> </a></td>
-=======
-                            <td><a href="details.html"> <?php echo $item['title']; ?> </a></td>
->>>>>>> Stashed changes
                             <td>$<?php echo number_format($item['price'], 2); ?></td>
                             <td><?php echo $item['quantity']; ?></td>
                             <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>

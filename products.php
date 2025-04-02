@@ -1,7 +1,7 @@
 ﻿<?php
 // Database connection
 $host = 'localhost';
-$dbname = 'product_catalog';
+$dbname = 'chaotic_goods';
 $username = 'root';  // Change this to your database username
 $password = '';      // Change this to your database password
 
@@ -94,10 +94,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
                             <div class="product-buttons">
                             <form action="cart.php" method="POST">
-                                <!-- Hidden product ID 
-                                <input type="hidden" name="add" value="<?= $product['id'] ?>">-->
-
-                                <!-- Add to Cart button -->
+                                <input type="hidden" name="add" value="<?= $product['id'] ?>">
                                 <button type="submit" class="btn btn-primary">Add to Cart</button>
                             </form>
                             </div>
