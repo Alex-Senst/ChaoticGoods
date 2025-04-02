@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?php
+$products = [
+    ["id" => 1, "name" => "Product 1", "price" => 19.99],
+    ["id" => 2, "name" => "Product 2", "price" => 24.99],
+    ["id" => 3, "name" => "Product 3", "price" => 15.99]
+];
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +17,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div class="sidebar">
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -23,15 +32,35 @@
             <a href="https://twitter.com" target="_blank" class="text-light"><i class="fab fa-twitter fa-2x"></i></a>
         </div>
     </div>
-    <div class="products">
-        <h1><u>Products</u></h1>
-        <ul>Product 1: <a href="details.html">Product Name</a></ul>
-        <ul style="padding-left: 60px;">Price: $XX.XX</ul>
-        <ul>Product 2: <a href="details.html">Product Name</a></ul>
-        <ul style="padding-left: 60px;">Price: $XX.XX</ul>
+
+    <div class="container mt-4">
+        <h1 class="text-center"><u>Products</u></h1>
+        <form action="cart.php" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Add to Cart</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <tr>
+                            <td><a href="details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['name']) ?></a></td>
+                            <td>$<?= number_format($product['price'], 2) ?></td>
+                            <td><input type="number" name="quantity[<?= $product['id'] ?>]" min="1" value="1"></td>
+                            <td><button type="submit" name="add" value="<?= $product['id'] ?>" class="btn btn-primary">Add</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
