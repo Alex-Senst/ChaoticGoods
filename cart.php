@@ -54,30 +54,6 @@ foreach ($_SESSION['cart'] as $item) {
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="text-center">Products</h1>
-        <form action="" method="post">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Add to Cart</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $id => $product): ?>
-                        <tr>
-                            <td><?php echo $product['name']; ?></td>
-                            <td>$<?php echo number_format($product['price'], 2); ?></td>
-                            <td><input type="number" name="quantity[<?php echo $id; ?>]" min="1" value="1"></td>
-                            <td><button type="submit" name="add" value="<?php echo $id; ?>" class="btn btn-primary">Add</button></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </form>
-
         <h2 class="text-center">My Cart</h2>
         <?php if (empty($_SESSION['cart'])): ?>
             <p>Your cart is empty.</p>
