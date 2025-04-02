@@ -5,9 +5,9 @@ require 'db.php';
 // Initialize user session
 $user_id = isset($_SESSION['user-id']) ? $_SESSION['user-id'] : 0;
 
-// Fetch products from database
+// Fetch products from the correct database
 $products = [];
-$result = $conn->query("SELECT id, name, price FROM products");
+$result = $con->query("SELECT id, title, price FROM product_catalog.products");
 while ($row = $result->fetch_assoc()) {
     $products[$row['id']] = $row;
 }
@@ -24,7 +24,7 @@ if (isset($_POST['add'])) {
 
     if (isset($products[$productId])) {
         $_SESSION['cart'][$productId] = [
-            'name' => $products[$productId]['name'],
+            'title' => $products[$productId]['title'], // Use title instead of name
             'price' => $products[$productId]['price'],
             'quantity' => $quantity
         ];
@@ -86,7 +86,7 @@ foreach ($_SESSION['cart'] as $item) {
                     </tr>
                     <?php foreach ($_SESSION['cart'] as $productId => $item): ?>
                         <tr>
-                            <td><a href="details.html"> <?php echo $item['name']; ?> </a></td>
+                            <td><a href="details.php?id=<?php echo $productId; ?>"> <?php echo $item['title']; ?> </a></td>
                             <td>$<?php echo number_format($item['price'], 2); ?></td>
                             <td><?php echo $item['quantity']; ?></td>
                             <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
@@ -95,7 +95,7 @@ foreach ($_SESSION['cart'] as $item) {
                     <?php endforeach; ?>
                 </table>
                 <br>
-                <table style="width: 147%";>
+                <table style="width: 147%;">
                     <tr>
                         <td># Items: <?php echo $totalItems; ?></td>
                         <td>Total: $<?php echo number_format($total, 2); ?></td>
@@ -112,4 +112,5 @@ foreach ($_SESSION['cart'] as $item) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
