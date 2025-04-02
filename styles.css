@@ -104,6 +104,31 @@ header, .form-label, .text {
     border-radius: 8px;
 }
 
+th {
+    padding: 15px 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    white-space: nowrap;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th:nth-child(1), td:nth-child(1) { width: 20%; } /* Product column wider */
+th:nth-child(2), td:nth-child(2) { width: 20%; text-align: center; } /* Each */
+th:nth-child(3), td:nth-child(3) { width: 20%; text-align: center; } /* Quantity */
+th:nth-child(4), td:nth-child(4) { width: 20%; text-align: center; } /* Total */
+th:nth-child(5), td:nth-child(5) { width: 40%; text-align: center; } /* Action */
+
 footer {
     background: lightgrey;
     color: white;

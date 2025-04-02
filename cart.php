@@ -76,7 +76,7 @@ foreach ($_SESSION['cart'] as $item) {
             <?php if (empty($_SESSION['cart'])): ?>
                 <p>Your cart is empty.</p>
             <?php else: ?>
-                <table style="width: 90%;">
+                <table style="width: 110%;">
                     <tr>
                         <th>Product</th>
                         <th>Each</th>
@@ -95,15 +95,15 @@ foreach ($_SESSION['cart'] as $item) {
                     <?php endforeach; ?>
                 </table>
                 <br>
-                <table style="width: 147%;">
+                <table style="width: 100%; margin-top: 20px;">
                     <tr>
-                        <td># Items: <?php echo $totalItems; ?></td>
-                        <td>Total: $<?php echo number_format($total, 2); ?></td>
+                        <td style="text-align: left;"># Items: <?php echo $totalItems; ?></td>
+                        <td style="text-align: right; font-weight: bold;">Total: $<?php echo number_format($total, 2); ?></td>
                     </tr>
                 </table>
                 <br><br>
                 <div class="container">
-                    <a href="checkout.php" class="btn btn-primary btn-sm btn-block" style="width: 50%; margin-left: 230px;">Checkout</a>
+                    <a href="checkout.php" class="btn btn-primary btn-sm btn-block" style="width: 50%; margin-left: 350px;">Checkout</a>
                 </div>
             <?php endif; ?>
         </div>
@@ -111,7 +111,7 @@ foreach ($_SESSION['cart'] as $item) {
     <footer>
         <p>2025 My Portfolio</p>
         <p><a href="about.html">About</a></p>
-        <p><a href="contact.html">Contact</a></p>
+        <p><a href="contact.php">Contact</a></p>
         <p><a href="cookies.html">Cookies</a></p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
