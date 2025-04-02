@@ -10,16 +10,16 @@ require 'db.php'; // Include database connection
 $user_id = $_SESSION['user-id'];
 
 // Fetch user details
-$query = "SELECT username, email, shipping_address, billing_address FROM users WHERE id = ?";
-$stmt = $conn->prepare($query);
+$query = "SELECT username, email FROM users WHERE id = ?";
+$stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 // Fetch order history
-$order_query = "SELECT order_date, product_name, status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
-$order_stmt = $conn->prepare($order_query);
+$order_query = "SELECT order_date status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+$order_stmt = $con->prepare($order_query);
 $order_stmt->bind_param("i", $user_id);
 $order_stmt->execute();
 $order_result = $order_stmt->get_result();

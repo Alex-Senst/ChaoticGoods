@@ -156,9 +156,9 @@
         $email    = mysqli_real_escape_string($con, $email);
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
-        $create_datetime = date("Y-m-d H:i:s");
-        $query    = "INSERT into `users` (first_name, last_name, username, password, email, create_datetime)
-                     VALUES ('$first_name', '$last_name', '$username', '" . md5($password) . "', '$email', '$create_datetime')";
+        $created_at = date("Y-m-d H:i:s");
+        $query    = "INSERT into `users` (first_name, last_name, username, password, email, created_at)
+                     VALUES ('$first_name', '$last_name', '$username', '" . md5($password) . "', '$email', '$created_at')";
         $result   = mysqli_query($con, $query);
         if ($result) {
             echo "<div class='form'>
