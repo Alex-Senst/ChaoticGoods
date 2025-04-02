@@ -109,12 +109,14 @@ header, .form-label, .text {
 footer {
     background: lightgrey;
     color: white;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     text-align: left;
     width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 9999;
+    padding-right: 200px;
+    line-height: 1;
 }
 
