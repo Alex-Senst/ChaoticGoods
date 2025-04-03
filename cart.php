@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require 'db.php';
 
@@ -80,6 +80,7 @@ foreach ($_SESSION['cart'] as $item) {
             <li><a href="products.php">Products</a></li>
             <li><a href="cart.php" class="active">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
+            <li><a href="sell.php">Sell an Item</a></li>
 
         </ul>
         <div class="social-icons">

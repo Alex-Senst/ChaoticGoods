@@ -13,7 +13,10 @@ try {
 }
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$query = "SELECT * FROM products WHERE title LIKE :search";
+$query = "SELECT p.*, u.username AS seller_name 
+          FROM products p 
+          LEFT JOIN users u ON p.seller_id = u.id 
+          WHERE p.title LIKE :search";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['search' => "%$search%"]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -84,6 +87,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="products.php" class="active">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
+            <li><a href="sell.php">Sell an Item</a></li>
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
@@ -107,6 +111,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="product-info">
                                 <div class="product-title"><?= htmlspecialchars($product['title']) ?></div>
                                 <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
+                                
+                                <?php if (!empty($product['seller_name'])): ?>
+                                    <div class="product-seller">Sold by: <?= htmlspecialchars($product['seller_name']) ?></div>
+                                <?php else: ?>
+                                    <div class="product-seller">Sold by: Admin</div>
+                                <?php endif; ?>
+
                                 <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
                                 <div class="product-buttons">
                                     <form action="cart.php" method="POST">

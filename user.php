@@ -51,6 +51,7 @@ $order_result = $order_stmt->get_result();
             <li><a href="products.php">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php" class="active">My Profile</a></li>
+            <li><a href="sell.php">Sell an Item</a></li>
 
         </ul>
         <div class="social-icons">

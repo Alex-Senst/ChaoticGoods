@@ -104,6 +104,11 @@ header, .form-label, .text {
     border-radius: 8px;
 }
 
+.row img {
+    max-width: 100%;
+    height: auto;
+}
+
 th {
     padding: 15px 20px;
     font-weight: bold;
@@ -146,7 +151,7 @@ footer {
     height: 25px;
 }
 
-footer p{
+footer p {
     margin: 0;
     padding: 0;
     line-height: 1;

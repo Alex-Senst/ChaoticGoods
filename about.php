@@ -17,10 +17,6 @@
             padding: 20px;
             flex-grow: 1;
         }
-        .row img {
-            max-width: 100%;
-            height: auto;
-        }
     </style>
 </head>
     <!-- Navigation Menu -->
@@ -32,6 +28,7 @@
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="user.php">My Profile</a></li>
                 <li><a href="login.php">Sign In</a></li>
+                <li><a href="sell.php">Sell an Item</a></li>
             </ul>
             <div class="social-icons">
                 <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
