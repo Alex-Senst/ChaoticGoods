@@ -16,21 +16,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $shipping_address = $_POST['shipping_address'];
     $billing_address = $_POST['billing_address'];
-    $payment = $_POST['payment'];
+    $payment_method = $_POST['payment']; // 'credit_card', 'paypal', or 'cash_on_delivery'
     $user_id = $_SESSION['user-id'] ?? 0;
 
-    if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment)) {
-        $stmt = $con->prepare("INSERT INTO orders (user_id, full_name, shipping_address, billing_address, total_price, payment_method) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssds", $user_id, $name, $shipping_address, $billing_address, $total, $payment);
+    if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment_method)) {
+        
+        // Insert into payments table
+        $stmt = $con->prepare("INSERT INTO payments (user_id, payment_type, status) VALUES (?, ?, 'pending')");
+        $stmt->bind_param("is", $user_id, $payment_method);
         $stmt->execute();
-        $order_id = $stmt->insert_id;
+        $payment_id = $stmt->insert_id; // Get payment ID
 
+        // Insert into orders table
+        $stmt = $con->prepare("INSERT INTO orders (user_id, name, shipping_address, billing_address, total_price, payment_id) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssdi", $user_id, $name, $shipping_address, $billing_address, $total, $payment_id);
+        $stmt->execute();
+        $order_id = $stmt->insert_id; // Get order ID
+
+        // Insert each cart item into order_details
         foreach ($_SESSION['cart'] as $productID => $item) {
             $stmt = $con->prepare("INSERT INTO order_details (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("iisdi", $order_id, $productID, $item['title'], $item['price'], $item['quantity']);
             $stmt->execute();
         }
 
+        // Clear cart & redirect
         $_SESSION['cart'] = [];
         $_SESSION['success_message'] = "Your order has been placed successfully!";
         header("Location: success.php");
