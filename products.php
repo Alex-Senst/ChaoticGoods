@@ -65,9 +65,15 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .product-buttons {
             margin-top: 15px;
         }
-
         .search-bar {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: 20px;
+            margin-right: auto;
+        }
+        .container {
+            margin-right: 300px;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -86,7 +92,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <div class="container" style="margin-left: 20px; padding-top: 20px;">
+    <div class="container">
         <!-- Search Bar -->
         <form method="GET" class="search-bar">
             <input type="text" name="search" class="form-control" placeholder="Search products..." value="<?= htmlspecialchars($search) ?>">
