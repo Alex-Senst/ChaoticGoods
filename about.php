@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+        .container {
+            margin-right: 220px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .row img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
     <!-- Navigation Menu -->
     <body>
@@ -39,6 +54,7 @@
                     <img src="Alex.jpg" alt="Alex" class="img-fluid rounded mb-3">
                     <p>We are committed to customer satisfaction and always strive to exceed your expectations with every purchase.</p>
                 </div>
+                <p> Hello there, we are a small business... </p>
             </div>
         </div>
 
