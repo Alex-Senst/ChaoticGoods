@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user-id'] ?? 0;
 
     if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment)) {
-        $stmt = $con->prepare("INSERT INTO orders (user_id, name, shipping_address, billing_address, total_price, payment_method) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $con->prepare("INSERT INTO orders (user_id, full_name, shipping_address, billing_address, total_price, payment_method) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssds", $user_id, $name, $shipping_address, $billing_address, $total, $payment);
         $stmt->execute();
         $order_id = $stmt->insert_id;
