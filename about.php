@@ -24,7 +24,7 @@
         <div class="sidebar">
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="products.php" class="active">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="user.php">My Profile</a></li>
                 <li><a href="login.php">Sign In</a></li>
@@ -56,7 +56,7 @@
         </div>
         <footer>
             <p>ChaoticGoods</p>
-            <p><a href="about.php">About</a></p>
+            <p><a href="about.php" class="active">About</a></p>
             <p><a href="contact.php">Contact</a></p>
             <p><a href="cookies.php">Cookies</a></p>
         </footer>
