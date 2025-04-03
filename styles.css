@@ -131,7 +131,7 @@ th:nth-child(5), td:nth-child(5) { width: 40%; text-align: center; } /* Action *
 
 footer {
     background: lightgrey;
-    color: white;
+    color: rgb(54, 54, 54);
     padding: 10px;
     text-align: left;
     width: calc(100% - 200px);
@@ -150,4 +150,15 @@ footer p{
     padding: 0;
     line-height: 1.2;
 }
+
+footer a {
+    text-decoration: none;
+    color: rgb(54, 54, 54);
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: darkgrey; 
+}
+
 

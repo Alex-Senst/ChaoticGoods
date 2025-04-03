@@ -50,6 +50,12 @@
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
         </div>
+        <footer>
+            <p>ChaoticGoods</p>
+            <p><a href="about.php">About</a></p>
+            <p><a href="contact.php">Contact</a></p>
+            <p><a href="cookies.php">Cookies</a></p>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     </body>
