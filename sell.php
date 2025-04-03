@@ -1,6 +1,7 @@
 <?php
+require("db.php");
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user-id'])) {
     die("You must be logged in to sell products.");
 }
 
@@ -75,11 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="sidebar">
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
-            <li><a href="login.php">Sign In</a></li>
             <li><a href="sell.php" class="active">Sell an Item</a></li>
         </ul>
         <div class="social-icons">

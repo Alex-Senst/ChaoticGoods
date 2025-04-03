@@ -7,9 +7,9 @@ $user_id = isset($_SESSION['user-id']) ? $_SESSION['user-id'] : 0;
 
 // Fetch products from the correct database
 $products = [];
-$result = $con->query("SELECT id, title, price FROM products");
+$result = $con->query("SELECT product_id, title, price FROM products");
 while ($row = $result->fetch_assoc()) {
-    $products[$row['id']] = $row;
+    $products[$row['product_id']] = $row;
 }
 
 // Initialize cart for user

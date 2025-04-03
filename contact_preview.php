@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,26 +8,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-        }
-        .container {
-            margin-right: 220px;
-            padding: 20px;
-            flex-grow: 1;
-        }
-    </style>
-</head>
-    <!-- Navigation Menu -->
+        <style>
+            .container {
+                max-width: 600px;
+                margin-top: 50px;
+                margin-left: 350px;
+            }
+        </style>
+    </head>
+    <!--Navigation Menu-->
     <body>
         <div class="sidebar">
             <ul>
-                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="user.php">My Profile</a></li>
+                <li><a href="login.php">Sign In</a></li>
+                <li><a href="registration.php">Sign Up</a></li>
                 <li><a href="sell.php">Sell an Item</a></li>
             </ul>
             <div class="social-icons">
@@ -35,32 +32,29 @@
                 <a href="https://twitter.com" target="_blank" class="text-light"><i class="fab fa-twitter fa-2x"></i></a>
             </div>
         </div>
-
         <div class="container">
-            <!-- About Us Section -->
-            <h2 class="text-center my-4">About Us</h2>
-
-            <!-- Images and Blurb -->
-            <div class="row text-center mb-4">
-                <div class="col-md-6">
-                    <img src="Shan.jpg" alt="Shan" class="img-fluid rounded mb-3">
-                    <p>Shan</p>
+            <h2 class="text-center">Contact</h2>
+            <form>
+                <div class="mb-3 mt-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
                 </div>
-                <div class="col-md-6">
-                    <img src="Alex.jpg" alt="Alex" class="img-fluid rounded mb-3">
-                    <p>Alex</p>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
                 </div>
-                <h2>About Us</h2>
-                <div class="content">
-                    <p>Hello there! We are a couple of small business owners looking to sell products to DnD lovers! Look around if you're interested!</p>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Your message"></textarea>
                 </div>
-            </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
         </div>
         <footer>
             <p>ChaoticGoods</p>
-            <p><a href="about.php" class="active">About</a></p>
-            <p><a href="contact.php">Contact</a></p>
-            <p><a href="cookies.php">Cookies</a></p>
+            <p><a href="about_preview.php">About</a></p>
+            <p><a href="contact_preview.php" class="active">Contact</a></p>
+            <p><a href="cookies_preview.php">Cookies</a></p>
         </footer>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

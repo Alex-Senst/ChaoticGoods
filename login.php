@@ -165,14 +165,14 @@
         if ($rows == 1) {
             $user = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $username;
-            $_SESSION['user-id'] = $user['id'];
+            $_SESSION['user-id'] = $user['user_id'];
 
             if (isset($_SESSION['redirect_to_cart'])) {
                 $productId = $_SESSION['redirect_to_cart']['product_id'];
                 $quantity = $_SESSION['redirect_to_cart']['quantity'];
     
                 // **Retrieve the product from database**
-                $query = "SELECT * FROM `products` WHERE id='$productId'";
+                $query = "SELECT * FROM `products` WHERE products_id='$productId'";
                 $result = mysqli_query($con, $query);
     
                 if ($result && mysqli_num_rows($result) > 0) {

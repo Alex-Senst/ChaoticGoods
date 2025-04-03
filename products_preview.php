@@ -91,10 +91,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="product-info">
                             <div class="product-title"><?= $product['title'] ?></div>
                             <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
-                            <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
+                            <a href="details.php?id=<?= $product['product_id'] ?>" class="btn btn-link">More Info</a>
                             <div class="product-buttons">
                             <form action="cart.php" method="POST">
-                                <input type="hidden" name="add" value="<?= $product['id'] ?>">
+                                <input type="hidden" name="add" value="<?= $product['product_id'] ?>">
                                 <button type="submit" class="btn btn-primary">Add to Cart</button>
                             </form>
                             </div>

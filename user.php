@@ -10,7 +10,7 @@ require 'db.php'; // Include database connection
 $user_id = $_SESSION['user-id'];
 
 // Fetch user details
-$query = "SELECT username, email FROM users WHERE id = ?";
+$query = "SELECT username, email FROM users WHERE user_id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -18,7 +18,13 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 // Fetch order history
-$order_query = "SELECT order_date status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+//$order_query = "SELECT order_date, status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+$order_query = "
+    SELECT orders.order_date, order_details.product_name, orders.status
+    FROM orders
+    JOIN order_details ON orders.order_id = order_details.order_id
+    WHERE orders.user_id = ? 
+    ORDER BY orders.order_date DESC";
 $order_stmt = $con->prepare($order_query);
 $order_stmt->bind_param("i", $user_id);
 $order_stmt->execute();

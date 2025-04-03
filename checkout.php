@@ -22,13 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment_method)) {
         
         // Insert into payments table
-        $stmt = $con->prepare("INSERT INTO payments (user_id, payment_type, status) VALUES (?, ?, 'pending')");
+        $stmt = $con->prepare("INSERT INTO payments (user_id, payment_method, status) VALUES (?, ?, 'pending')");
         $stmt->bind_param("is", $user_id, $payment_method);
         $stmt->execute();
         $payment_id = $stmt->insert_id; // Get payment ID
 
         // Insert into orders table
-        $stmt = $con->prepare("INSERT INTO orders (user_id, name, shipping_address, billing_address, total_price, payment_id) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $con->prepare("INSERT INTO orders (user_id, full_name, shipping_address, billing_address, total_price, payment_id) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssdi", $user_id, $name, $shipping_address, $billing_address, $total, $payment_id);
         $stmt->execute();
         $order_id = $stmt->insert_id; // Get order ID

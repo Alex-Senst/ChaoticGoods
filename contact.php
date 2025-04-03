@@ -20,11 +20,10 @@
     <body>
         <div class="sidebar">
             <ul>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="logout.php">Log Out</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="user.php">My Profile</a></li>
-                <li><a href="login.php">Sign In</a></li>
                 <li><a href="sell.php">Sell an Item</a></li>
             </ul>
             <div class="social-icons">

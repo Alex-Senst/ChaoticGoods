@@ -15,7 +15,7 @@ try {
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $query = "SELECT p.*, u.username AS seller_name 
           FROM products p 
-          LEFT JOIN users u ON p.seller_id = u.id 
+          LEFT JOIN users u ON p.seller_id = u.user_id 
           WHERE p.title LIKE :search";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['search' => "%$search%"]);
@@ -41,6 +41,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            margin-left: 20px;
+            width: 100%;
         }
 
         .product-card img {
@@ -118,10 +120,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="product-seller">Sold by: Admin</div>
                                 <?php endif; ?>
 
-                                <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
+                                <a href="details.php?id=<?= $product['product_id'] ?>" class="btn btn-link">More Info</a>
                                 <div class="product-buttons">
                                     <form action="cart.php" method="POST">
-                                        <input type="hidden" name="add" value="<?= $product['id'] ?>">
+                                        <input type="hidden" name="add" value="<?= $product['product_id'] ?>">
                                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                                     </form>
                                 </div>

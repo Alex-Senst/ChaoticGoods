@@ -23,10 +23,10 @@
     <body>
         <div class="sidebar">
             <ul>
-                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="user.php">My Profile</a></li>
+                <li><a href="login.php">Sign In</a></li>
+                <li><a href="registration.php">Sign Up</a></li>
                 <li><a href="sell.php">Sell an Item</a></li>
             </ul>
             <div class="social-icons">
@@ -88,9 +88,9 @@
         </div>
         <footer>
             <p>ChaoticGoods</p>
-            <p><a href="about.php">About</a></p>
-            <p><a href="contact.php">Contact</a></p>
-            <p><a href="cookies.php" class="active">Cookies</a></p>
+            <p><a href="about_preview.php">About</a></p>
+            <p><a href="contact_preview.php">Contact</a></p>
+            <p><a href="cookies_preview.php" class="active">Cookies</a></p>
         </footer>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
