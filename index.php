@@ -27,10 +27,6 @@
         <p>Chaotic Goods</p>
     </div>
     <br> <br> <br> <br>
-    <h2>About Us</h2>
-    <div class = "content">
-        <p>Hello there! We are a couple of small business owners looking to sell products to DnD lovers! Look around if you're interested!</p>
-    </div>
     <footer>
         <p>ChaoticGoods</p>
         <p><a href="about.php">About</a></p>

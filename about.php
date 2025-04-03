@@ -45,13 +45,16 @@
             <div class="row text-center mb-4">
                 <div class="col-md-6">
                     <img src="Shan.jpg" alt="Shan" class="img-fluid rounded mb-3">
-                    <p>Our team is passionate about providing the best products for your needs. We believe in quality and innovation.</p>
+                    <p>Shan</p>
                 </div>
                 <div class="col-md-6">
                     <img src="Alex.jpg" alt="Alex" class="img-fluid rounded mb-3">
-                    <p>We are committed to customer satisfaction and always strive to exceed your expectations with every purchase.</p>
+                    <p>Alex</p>
                 </div>
-                <p> Hello there, we are a small business... </p>
+                <h2>About Us</h2>
+                <div class="content">
+                    <p>Hello there! We are a couple of small business owners looking to sell products to DnD lovers! Look around if you're interested!</p>
+                </div>
             </div>
         </div>
         <footer>
