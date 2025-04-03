@@ -1,9 +1,9 @@
 ﻿<?php
-// Database connection
+
 $host = 'localhost';
 $dbname = 'chaotic_goods';
-$username = 'root';  // Change this to your database username
-$password = '';      // Change this to your database password
+$username = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -12,10 +12,10 @@ try {
     echo 'Connection failed: ' . $e->getMessage();
 }
 
-// Fetch products from database
-$query = "SELECT * FROM products";
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+$query = "SELECT * FROM products WHERE title LIKE :search";
 $stmt = $pdo->prepare($query);
-$stmt->execute();
+$stmt->execute(['search' => "%$search%"]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -65,6 +65,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .product-buttons {
             margin-top: 15px;
         }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -74,7 +78,6 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="products.php" class="active">Products</a></li>
             <li><a href="cart.php">Cart</a></li>
             <li><a href="user.php">My Profile</a></li>
-
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>
@@ -82,34 +85,46 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="https://twitter.com" target="_blank" class="text-light"><i class="fab fa-twitter fa-2x"></i></a>
         </div>
     </div>
+
     <div class="container" style="margin-left: 20px; padding-top: 20px;">
+        <!-- Search Bar -->
+        <form method="GET" class="search-bar">
+            <input type="text" name="search" class="form-control" placeholder="Search products..." value="<?= htmlspecialchars($search) ?>">
+        </form>
+
         <div class="row">
-            <?php foreach ($products as $product): ?>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="<?= $product['image_url'] ?>" alt="Product Image">
-                        <div class="product-info">
-                            <div class="product-title"><?= $product['title'] ?></div>
-                            <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
-                            <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
-                            <div class="product-buttons">
-                            <form action="cart.php" method="POST">
-                                <input type="hidden" name="add" value="<?= $product['id'] ?>">
-                                <button type="submit" class="btn btn-primary">Add to Cart</button>
-                            </form>
+            <?php if (count($products) > 0): ?>
+                <?php foreach ($products as $product): ?>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="Product Image">
+                            <div class="product-info">
+                                <div class="product-title"><?= htmlspecialchars($product['title']) ?></div>
+                                <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
+                                <a href="details.php?id=<?= $product['id'] ?>" class="btn btn-link">More Info</a>
+                                <div class="product-buttons">
+                                    <form action="cart.php" method="POST">
+                                        <input type="hidden" name="add" value="<?= $product['id'] ?>">
+                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No products found.</p>
+            <?php endif; ?>
         </div>
     </div>
+
     <footer>
         <p>ChaoticGoods</p>
         <p><a href="about.php">About</a></p>
         <p><a href="contact.php">Contact</a></p>
         <p><a href="cookies.php">Cookies</a></p>
     </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
