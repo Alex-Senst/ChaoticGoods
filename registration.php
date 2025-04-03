@@ -20,7 +20,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('https://cdna.artstation.com/p/assets/images/images/003/292/706/large/olga-ok-.jpg?1472079911');
+            background-image: url('https://w0.peakpx.com/wallpaper/628/618/HD-wallpaper-black-market-world-art-fantasy-hoooon.jpg');
             background-size: cover;
         }
 
@@ -184,6 +184,7 @@
                 <input type="password" class="login-input" name="password" placeholder="Password">
                 <input type="submit" name="submit" value="Register" class="login-button">
                 <p class="login-link"><a href="login.php">Already have an account? Login here!</a></p>
+                <p class="login-link"><a href="index.php">Return to Homepage</a></p>
             </form>
         </div>
     </div>

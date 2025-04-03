@@ -10,8 +10,8 @@ require 'db.php'; // Database connection
 $user_id = $_SESSION['user-id'];
 
 // Fetch current user data
-$query = "SELECT username, email, shipping_address, billing_address FROM users WHERE id = ?";
-$stmt = $conn->prepare($query);
+$query = "SELECT username, email FROM users WHERE user_id = ?";
+$stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -21,12 +21,10 @@ $user = $result->fetch_assoc();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_username = trim($_POST['username']);
     $new_email = trim($_POST['email']);
-    $new_shipping = trim($_POST['shipping_address']);
-    $new_billing = trim($_POST['billing_address']);
 
-    $update_query = "UPDATE users SET username=?, email=?, shipping_address=?, billing_address=? WHERE id=?";
-    $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("ssssi", $new_username, $new_email, $new_shipping, $new_billing, $user_id);
+    $update_query = "UPDATE users SET username=?, email=? WHERE user_id=?";
+    $update_stmt = $con->prepare($update_query);
+    $update_stmt->bind_param("ssi", $new_username, $new_email, $user_id);
 
     if ($update_stmt->execute()) {
         $_SESSION['username'] = $new_username;
@@ -64,14 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-group">
                     <label>Email:</label>
                     <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-                </div>
-                <div class="form-group">
-                    <label>Shipping Address:</label>
-                    <input type="text" name="shipping_address" class="form-control" value="<?php echo htmlspecialchars($user['shipping_address']); ?>">
-                </div>
-                <div class="form-group">
-                    <label>Billing Address:</label>
-                    <input type="text" name="billing_address" class="form-control" value="<?php echo htmlspecialchars($user['billing_address']); ?>">
                 </div>
                 <button type="submit" class="btn btn-success">Save Changes</button>
                 <a href="user.php" class="btn btn-secondary">Cancel</a>

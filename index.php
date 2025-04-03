@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            /* Add a green overlay with a slightly transparent green color */
+            position: relative;
+            background-image: url('https://i0.wp.com/nerdarchy.com/wp-content/uploads/2018/04/Volos-Guide-to-Monsters.png?fit=800%2C534&ssl=1');
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+        }
+        </style>
 </head>
 <body>
     <div class="sidebar">

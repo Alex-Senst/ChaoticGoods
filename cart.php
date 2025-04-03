@@ -36,7 +36,6 @@ if (!isset($_SESSION['user-id'])) {
 
 //Add products to cart
 if (isset($_POST['add'])) {
-    
     $productId = $_POST['add'];
     $quantity = isset($_POST['quantity'][$productId]) ? $_POST['quantity'][$productId] : 1;
 
@@ -48,6 +47,15 @@ if (isset($_POST['add'])) {
         ];
     }
 }
+
+    // Add products to cart with updated quantity
+    if (isset($_POST['quantity'])) {
+        foreach ($_POST['quantity'] as $productId => $quantity) {
+            if (isset($products[$productId])) {
+                $_SESSION['cart'][$productId]['quantity'] = $quantity;
+            }
+        }
+    }
 
 // Remove products
 if (isset($_GET['remove'])) {
@@ -107,7 +115,17 @@ foreach ($_SESSION['cart'] as $item) {
                         <tr>
                             <td><a href="details.php?id=<?php echo $productId; ?>"> <?php echo $item['title']; ?> </a></td>
                             <td>$<?php echo number_format($item['price'], 2); ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
+                            <td>
+                                <form action="cart.php" method="POST">
+                                    <select name="quantity[<?php echo $productId; ?>]" onchange="this.form.submit()">
+                                        <?php for ($i = 1; $i <= 15; $i++): ?>
+                                            <option value="<?php echo $i; ?>" <?php echo $i == $item['quantity'] ? 'selected' : ''; ?>>
+                                                <?php echo $i; ?>
+                                            </option>
+                                        <?php endfor; ?>
+                                    </select>
+                                </form>
+                            </td>
                             <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
                             <td><a href="?remove=<?php echo $productId; ?>" class="btn btn-danger btn-sm">Remove</a></td>
                         </tr>

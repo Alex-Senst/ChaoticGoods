@@ -71,6 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             margin: 5px 0 15px;
         }
+        h2{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>

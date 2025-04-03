@@ -33,6 +33,12 @@ header, .form-label, .text {
     text-align: center;
     padding-right: 150px;
     font-size: 100px;
+    position: absolute; /* Position the text absolutely */
+    top: 50%; /* Move down to the middle of the screen */
+    left: 50%; /* Move right to the middle of the screen */
+    transform: translate(-50%, -50%); /* Center the text both vertically and horizontally */
+    z-index: 1; /* Ensure the text is on top of the overlay */
+    white-space: nowrap; /* Prevent the text from wrapping */
 }
 
 .text {
@@ -167,5 +173,3 @@ footer a:hover {
     text-decoration: underline;
     color: black; 
 }
-
-

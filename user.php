@@ -74,7 +74,7 @@ $order_result = $order_stmt->get_result();
             <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
             <a href="changeps.php">Change Password</a>
-            <a href="edit-profile.php" class="btn btn-warning btn-sm">Edit Profile</a>
+            <a href="edit_profile.php" class="btn btn-warning btn-sm">Edit Profile</a>
         </div>
     </div>
 

@@ -215,6 +215,7 @@
                 <input type="submit" value="Login" class="login-button" />
             </form>
             <p class="login-link"><a href="registration.php">Don't have an account yet? Register here!</a></p>
+            <p class="login-link"><a href="index.php">Return to Homepage</a></p>
         </div>
     </div>
 <?php
