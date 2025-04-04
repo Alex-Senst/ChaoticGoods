@@ -25,6 +25,7 @@
             <li><a href="products_preview.php">Products</a></li>
             <li><a href="login.php">Sign In</a></li>
             <li><a href="registration.php">Sign Up</a></li>
+            <li><a href="sell.php">Sell an Item</a></li>
         </ul>
         <div class="social-icons">
             <a href="https://facebook.com" target="_blank" class="text-light mr-2"><i class="fab fa-facebook fa-2x"></i></a>

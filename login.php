@@ -172,7 +172,7 @@
                 $quantity = $_SESSION['redirect_to_cart']['quantity'];
     
                 // **Retrieve the product from database**
-                $query = "SELECT * FROM `products` WHERE products_id='$productId'";
+                $query = "SELECT * FROM `products` WHERE product_id='$productId'";
                 $result = mysqli_query($con, $query);
     
                 if ($result && mysqli_num_rows($result) > 0) {
