@@ -157,21 +157,25 @@
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
         $created_at = date("Y-m-d H:i:s");
-        $query    = "INSERT into `users` (first_name, last_name, username, password, email, created_at)
-                     VALUES ('$first_name', '$last_name', '$username', '" . md5($password) . "', '$email', '$created_at')";
-        $result   = mysqli_query($con, $query);
-        if ($result) {
-            echo "<div class='form'>
-                  <h3>You are registered successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                  </div>";
+
+        if ($first_name && $last_name && $username && $email && $password) {
+            $query = "INSERT into `users` (first_name, last_name, username, password, email, created_at)
+                      VALUES ('$first_name', '$last_name', '$username', '" . md5($password) . "', '$email', '$created_at')";
+            $result = mysqli_query($con, $query);
+    
+            if ($result) {
+                echo "<script>
+                    alert('Your account was successfully created!');
+                    window.location.href = 'login.php';
+                </script>";
+                exit(); // Always call exit after header redirect
+            } else {
+                $error = "An error occurred while registering. Please try again.";
+            }
         } else {
-            echo "<div class='form'>
-                  <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='registration.php'>registration</a> again.</p>
-                  </div>";
+            $error = "All fields are required. Please fill them in.";
         }
-    } else {
+    } else{
 ?>
     <div class="glass-container">
         <div class="register-box">

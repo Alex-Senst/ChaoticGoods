@@ -166,6 +166,7 @@
             $user = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['role'] = $user['role'];
 
             if (isset($_SESSION['redirect_to_cart'])) {
                 $productId = $_SESSION['redirect_to_cart']['product_id'];
@@ -193,8 +194,11 @@
                 header("Location: cart.php");
                 exit();
             } else {
-                // Redirect to user dashboard if no product was stored
-                header("Location: user.php");
+                if ($user['role'] === 'admin') {
+                    header("Location: admin/dashboard.php"); // <-- Your admin dashboard
+                } else {
+                    header("Location: user.php");
+                }
                 exit();
             }
             // Redirect to user dashboard page

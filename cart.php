@@ -2,74 +2,76 @@
 session_start();
 require 'db.php';
 
-// Initialize user session
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+$user_id = $_SESSION['user_id'] ?? 0;
 
-// Fetch products from the correct database
+// Fetch products
 $products = [];
 $result = $con->query("SELECT product_id, title, price FROM products");
 while ($row = $result->fetch_assoc()) {
     $products[$row['product_id']] = $row;
 }
 
-// Initialize cart for user
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
-// If the user is not logged in, store the item data in session and redirect to login
-if (!isset($_SESSION['user_id'])) {
-    // Store the product and quantity to session for later use
-    if(isset($_POST['add'])){
-            $_SESSION['redirect_to_cart'] = [
-                'product_id' => $_POST['add'],
-                'quantity' => 1
-            ];
+// If not logged in, use session and redirect
+if (!$user_id) {
+    if (isset($_POST['add'])) {
+        $_SESSION['redirect_to_cart'] = [
+            'product_id' => $_POST['add'],
+            'quantity' => 1
+        ];
     }
-
-
-    // Redirect to login page
     header("Location: login.php");
     exit();
 }
 
-
-//Add products to cart
+// ADD item to cart
 if (isset($_POST['add'])) {
     $productId = $_POST['add'];
-    $quantity = isset($_POST['quantity'][$productId]) ? $_POST['quantity'][$productId] : 1;
+    $quantity = 1;
+    $stmt = $con->prepare("INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)
+                           ON DUPLICATE KEY UPDATE quantity = quantity + ?");
+    $stmt->bind_param("iiii", $user_id, $productId, $quantity, $quantity);
+    $stmt->execute();
+}
 
-    if (isset($products[$productId])) {
-        $_SESSION['cart'][$productId] = [
-            'title' => $products[$productId]['title'],
-            'price' => $products[$productId]['price'],
-            'quantity' => $quantity
-        ];
+// UPDATE quantities
+if (isset($_POST['quantity'])) {
+    foreach ($_POST['quantity'] as $productId => $quantity) {
+        $stmt = $con->prepare("UPDATE cart_items SET quantity = ? WHERE user_id = ? AND product_id = ?");
+        $stmt->bind_param("iii", $quantity, $user_id, $productId);
+        $stmt->execute();
     }
 }
 
-    // Add products to cart with updated quantity
-    if (isset($_POST['quantity'])) {
-        foreach ($_POST['quantity'] as $productId => $quantity) {
-            if (isset($products[$productId])) {
-                $_SESSION['cart'][$productId]['quantity'] = $quantity;
-            }
-        }
-    }
-
-// Remove products
+// REMOVE item
 if (isset($_GET['remove'])) {
     $productId = $_GET['remove'];
-    unset($_SESSION['cart'][$productId]);
+    $stmt = $con->prepare("DELETE FROM cart_items WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("ii", $user_id, $productId);
+    $stmt->execute();
 }
 
-// Calculate total
+// LOAD CART from DB
+$cart = [];
 $total = 0;
 $totalItems = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $total += $item['price'] * $item['quantity'];
-    $totalItems += $item['quantity'];
+$stmt = $con->prepare("SELECT product_id, quantity FROM cart_items WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $productId = $row['product_id'];
+    if (isset($products[$productId])) {
+        $cart[$productId] = [
+            'title' => $products[$productId]['title'],
+            'price' => $products[$productId]['price'],
+            'quantity' => $row['quantity']
+        ];
+        $total += $products[$productId]['price'] * $row['quantity'];
+        $totalItems += $row['quantity'];
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +102,7 @@ foreach ($_SESSION['cart'] as $item) {
     <h2 style="text-align: center; padding-right: 220px; padding-top: 15px;">My Cart</h2>
     <div class="container">
         <div class="text">
-            <?php if (empty($_SESSION['cart'])): ?>
+            <?php if (empty($cart)): ?>
                 <p>Your cart is empty.</p>
             <?php else: ?>
                 <table style="width: 110%;">
@@ -111,7 +113,7 @@ foreach ($_SESSION['cart'] as $item) {
                         <th>Total</th>
                         <th>Action</th>
                     </tr>
-                    <?php foreach ($_SESSION['cart'] as $productId => $item): ?>
+                    <?php foreach ($cart as $productId => $item): ?>
                         <tr>
                             <td><a href="details.php?id=<?php echo $productId; ?>"> <?php echo $item['title']; ?> </a></td>
                             <td>$<?php echo number_format($item['price'], 2); ?></td>

@@ -42,7 +42,6 @@ if (!$product) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
@@ -53,7 +52,6 @@ if (!$product) {
         }
 
         .wrapper {
-            background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -120,7 +118,7 @@ if (!$product) {
         <h3><?= htmlspecialchars($product['title']) ?></h3>
         <p class="description"><?= htmlspecialchars($product['description']) ?></p>
         <p class="price">Price: $<?= htmlspecialchars($product['price']) ?></p>
-        <p class="seller">Seller: <?= htmlspecialchars($product['seller_name']) ?></p>
+        <p class="seller">Seller: <?= htmlspecialchars($product['seller_name'] ?? 'Admin') ?></p>
 
         <div class="product-buttons">
             <form action="cart.php" method="POST">
