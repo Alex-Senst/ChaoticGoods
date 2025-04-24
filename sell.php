@@ -21,26 +21,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate user input
     $title = trim($_POST["title"]);
     $price = trim($_POST["price"]);
+    $color = trim($_POST["color"]);
+    $type = trim($_POST["type"]);
+    if (empty($color) || empty($type)) {
+        die("Color and type are required.");
+    }    
     $image_path = '';
 
-if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
-    $upload_dir = 'uploads/';
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0755, true); // Create folder if it doesn't exist
-    }
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = 'uploads/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true); // Create folder if it doesn't exist
+        }
 
-    $tmp_name = $_FILES['image_file']['tmp_name'];
-    $name = basename($_FILES['image_file']['name']);
-    $target_path = $upload_dir . uniqid() . '_' . $name;
+        $tmp_name = $_FILES['image_file']['tmp_name'];
+        $name = basename($_FILES['image_file']['name']);
+        $target_path = $upload_dir . uniqid() . '_' . $name;
 
-    if (move_uploaded_file($tmp_name, $target_path)) {
-        $image_path = $target_path;
+        if (move_uploaded_file($tmp_name, $target_path)) {
+            $image_path = $target_path;
+        } else {
+            die("Image upload failed.");
+        }
     } else {
-        die("Image upload failed.");
+        die("Please upload an image.");
     }
-} else {
-    die("Please upload an image.");
-}
 
     $description = trim($_POST["description"]);
     $user_id = $_SESSION['user_id'];
@@ -49,16 +54,19 @@ if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ER
         die("All fields are required.");
     }
 
-    $query = "INSERT INTO products (title, price, image_url, description, seller_id) 
-              VALUES (:title, :price, :image_url, :description, :seller_id)";
+    $query = "INSERT INTO products (title, price, image_url, description, seller_id, color, type) 
+          VALUES (:title, :price, :image_url, :description, :seller_id, :color, :type)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         'title' => $title,
         'price' => $price,
-        'image_url' => $image_url,
+        'image_url' => $image_path,
         'description' => $description,
-        'seller_id' => $user_id
+        'seller_id' => $user_id,
+        'color' => $color,
+        'type' => $type
     ]);
+
 
     header("Location: products.php");
     exit;
@@ -126,6 +134,29 @@ if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ER
             
             <label>Description:</label>
             <textarea name="description" required></textarea>
+
+            <label>Color:</label>
+            <select name="color" required>
+                <option value="">Select Color</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="purple">Purple</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+            </select>
+            <br>
+            <label>Type:</label>
+            <select name="type" required>
+                <option value="">Select Type</option>
+                <option value="book">Books</option>
+                <option value="dice">Dice</option>
+                <option value="bag">Bags</option>
+                <option value="sticker">Stickers</option>
+            </select>
+
             
             <button type="submit">Sell</button>
         </form>
