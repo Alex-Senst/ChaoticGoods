@@ -138,7 +138,12 @@ if (!$product) {
         </div>
         <p><a href="products.php" style="color: #007bff; text-decoration: none;">&larr; Back to Products</a></p>
     </div>
-
 </div>
+    <footer>
+        <p>ChaoticGoods</p>
+        <p><a href="about.php">About</a></p>
+        <p><a href="contact.php">Contact</a></p>
+        <p><a href="cookies.php">Cookies</a></p>
+    </footer>
 </body>
 </html>

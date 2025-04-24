@@ -1,7 +1,7 @@
 <?php
 require("db.php");
 session_start();
-if (!isset($_SESSION['user-id'])) {
+if (!isset($_SESSION['user_id'])) {
     die("You must be logged in to sell products.");
 }
 

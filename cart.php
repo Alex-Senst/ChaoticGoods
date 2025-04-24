@@ -3,7 +3,7 @@ session_start();
 require 'db.php';
 
 // Initialize user session
-$user_id = isset($_SESSION['user-id']) ? $_SESSION['user-id'] : 0;
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
 
 // Fetch products from the correct database
 $products = [];
@@ -18,7 +18,7 @@ if (!isset($_SESSION['cart'])) {
 }
 
 // If the user is not logged in, store the item data in session and redirect to login
-if (!isset($_SESSION['user-id'])) {
+if (!isset($_SESSION['user_id'])) {
     // Store the product and quantity to session for later use
     if(isset($_POST['add'])){
             $_SESSION['redirect_to_cart'] = [

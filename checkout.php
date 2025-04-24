@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shipping_address = $_POST['shipping_address'];
     $billing_address = $_POST['billing_address'];
     $payment_method = $_POST['payment']; // 'credit_card', 'paypal', or 'cash_on_delivery'
-    $user_id = $_SESSION['user-id'] ?? 0;
+    $user_id = $_SESSION['user_id'] ?? 0;
 
     if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment_method)) {
         

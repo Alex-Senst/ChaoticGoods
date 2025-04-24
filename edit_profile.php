@@ -1,13 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['user-id'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 require 'db.php'; // Database connection
 
-$user_id = $_SESSION['user-id'];
+$user_id = $_SESSION['user_id'];
 
 // Fetch current user data
 $query = "SELECT username, email FROM users WHERE user_id = ?";

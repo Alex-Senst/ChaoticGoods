@@ -165,7 +165,7 @@
         if ($rows == 1) {
             $user = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $username;
-            $_SESSION['user-id'] = $user['user_id'];
+            $_SESSION['user_id'] = $user['user_id'];
 
             if (isset($_SESSION['redirect_to_cart'])) {
                 $productId = $_SESSION['redirect_to_cart']['product_id'];
