@@ -85,33 +85,28 @@ if ($user['role'] !== 'admin') {
                 <?php endwhile; ?>
             </table>
 
-            <div class="container">
-                <h2 class="text-center mb-4">Add New User</h2>
-                <form method="POST" action="">
-                    <div class="mb-3">
-                        <label for="username" class="form-label" style="color: black">Username</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label" style="color: black">Email address</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label" style="color: black">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="role" class="form-label" style="color: black">Role</label>
-                        <select name="role" id="role" class="form-control" required>
-                            <option value="">Select a role</option>
-                            <option value="buyer">Buyer</option>
-                            <option value="seller">Seller</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                    <button type="submit" name="create_user" class="btn btn-primary btn-block">Create User</button>
-                </form>
-            </div>
+            <h2>Add New User</h2>
+            <form method="POST" style="max-width: 400px; margin: 5px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+                <label for="username" style="display: block; margin-bottom: 5px;">Username</label>
+                <input name="username" id="username" placeholder="Enter username" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+
+                <label for="email" style="display: block; margin-bottom: 5px;">Email</label>
+                <input name="email" id="email" placeholder="Enter email" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+
+                <label for="password" style="display: block; margin-bottom: 5px;">Password</label>
+                <input name="password" id="password" type="password" placeholder="Enter password" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+
+                <label for="role" style="display: block; margin-bottom: 5px;">Role</label>
+                <select name="role" id="role" style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option value="buyer">Buyer</option>
+                    <option value="seller">Seller</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <button name="create_user" type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Create User
+                </button>
+            </form>
         </div>
     </div>
 </body>
