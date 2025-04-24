@@ -205,7 +205,11 @@
             //header("Location: user.php");
             //exit(); // Ensure script stops here
         } else {
-            $error_message = "Incorrect Username or Password.";
+            echo "<script>
+                alert('Incorrect Username or Password.');
+                window.location.href = 'login.php';
+            </script>";
+            exit();            
         }
 
     } else{

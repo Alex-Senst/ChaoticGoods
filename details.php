@@ -116,6 +116,9 @@ if (!$product) {
             <p class="description"><?= htmlspecialchars($product['description']) ?></p>
             <p class="price">Price: $<?= htmlspecialchars($product['price']) ?></p>
             <p class="seller">Seller: <?= htmlspecialchars($product['seller_name'] ?? 'Admin') ?></p>
+            <p class="color">Color: <?= htmlspecialchars($product['color']) ?></p>
+            <p class="type">Type: <?= htmlspecialchars($product['type']) ?></p>
+
 
             <div class="product-buttons">
                 <form action="cart.php" method="POST">
