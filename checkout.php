@@ -2,14 +2,26 @@
 session_start();
 require 'db.php';
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    header("Location: cart.php");
-    exit();
+$user_id = $_SESSION['user_id'] ?? 0;
+
+$cart = [];
+$total = 0;
+$stmt = $con->prepare("SELECT ci.product_id, ci.quantity, p.title, p.price 
+                       FROM cart_items ci 
+                       JOIN products p ON ci.product_id = p.product_id 
+                       WHERE ci.user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $cart[] = $row;
+    $total += $row['price'] * $row['quantity'];
 }
 
-$total = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $total += $item['price'] * $item['quantity'];
+if (empty($cart)) {
+    header("Location: cart.php");
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shipping_address = $_POST['shipping_address'];
     $billing_address = $_POST['billing_address'];
     $payment_method = $_POST['payment']; // 'credit_card', 'paypal', or 'cash_on_delivery'
-    $user_id = $_SESSION['user_id'] ?? 0;
 
     if (!empty($name) && !empty($shipping_address) && !empty($billing_address) && !empty($payment_method)) {
         
@@ -34,14 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $order_id = $stmt->insert_id; // Get order ID
 
         // Insert each cart item into order_details
-        foreach ($_SESSION['cart'] as $productID => $item) {
+        foreach ($cart as $item) {
+            $productID = $item['product_id'];        
             $stmt = $con->prepare("INSERT INTO order_details (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("iisdi", $order_id, $productID, $item['title'], $item['price'], $item['quantity']);
             $stmt->execute();
         }
 
         // Clear cart & redirect
-        $_SESSION['cart'] = [];
+        $stmt = $con->prepare("DELETE FROM cart_items WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
         $_SESSION['success_message'] = "Your order has been placed successfully!";
         header("Location: success.php");
         exit();
@@ -143,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 
                 <br>
-                <table style="width: 147%;">
+                <table style="width: 125%;">
                     <tr>
                         <td><strong>Total:</strong></td>
                         <td>$<?php echo number_format($total, 2); ?></td>
