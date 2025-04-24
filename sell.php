@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = trim($_POST["description"]);
     $user_id = $_SESSION['user_id'];
 
-    if (empty($title) || empty($price) || empty($image_url) || empty($description)) {
+    if (empty($title) || empty($price) || empty($image_path) || empty($description)) {
         die("All fields are required.");
     }
 
