@@ -85,18 +85,33 @@ if ($user['role'] !== 'admin') {
                 <?php endwhile; ?>
             </table>
 
-            <h3>Add New User</h3>
-            <form method="POST">
-                <input name="username" placeholder="Username"><br>
-                <input name="email" placeholder="Email"><br>
-                <input name="password" type="password" placeholder="Password"><br>
-                <select name="role">
-                    <option value="buyer">Buyer</option>
-                    <option value="seller">Seller</option>
-                    <option value="admin">Admin</option>
-                </select><br>
-                <button name="create_user" type="submit">Create User</button>
-            </form>
+            <div class="container">
+                <h2 class="text-center mb-4">Add New User</h2>
+                <form method="POST" action="">
+                    <div class="mb-3">
+                        <label for="username" class="form-label" style="color: black">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label" style="color: black">Email address</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label" style="color: black">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="role" class="form-label" style="color: black">Role</label>
+                        <select name="role" id="role" class="form-control" required>
+                            <option value="">Select a role</option>
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" name="create_user" class="btn btn-primary btn-block">Create User</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
