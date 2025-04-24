@@ -92,14 +92,6 @@ if (!$product) {
         .product-buttons .btn:hover {
             background-color: #0056b3;
         }
-
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -139,11 +131,16 @@ if (!$product) {
         <p><a href="products.php" style="color: #007bff; text-decoration: none;">&larr; Back to Products</a></p>
     </div>
 </div>
-    <footer>
-        <p>ChaoticGoods</p>
-        <p><a href="about.php">About</a></p>
-        <p><a href="contact.php">Contact</a></p>
-        <p><a href="cookies.php">Cookies</a></p>
-    </footer>
+
+<footer>
+    <p>ChaoticGoods</p>
+    <p><a href="about.php">About</a></p>
+    <p><a href="contact.php">Contact</a></p>
+    <p><a href="cookies.php">Cookies</a></p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
