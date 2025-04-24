@@ -70,6 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 creditCardFields.style.display = "none";
             }
         }
+        window.addEventListener("DOMContentLoaded", function () {
+            toggleCreditCardFields(); // credit card details are shown when page is loaded
+        });
     </script>
 </head>
 <body>
@@ -114,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td>
                             <select name="payment" id="payment" class="form-control" onchange="toggleCreditCardFields()">
                                 <option value="credit_card">Credit Card</option>
-                                <option value="paypal">PayPal</option>
+                                <!-- <option value="paypal">PayPal</option> -->
                                 <option value="cash_on_delivery">Cash on Delivery</option>
                             </select>
                         </td>
@@ -129,8 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <td><input type="text" name="card_number" class="form-control" maxlength="16"></td>
                         </tr>
                         <tr>
-                            <td><label>Expiry Date</label></td>
-                            <td><input type="text" name="expiry_date" class="form-control" placeholder="MM/YY"></td>
+                            <td><label>Expiration Date</label></td>
+                            <td><input type="text" name="expiration_date" class="form-control" placeholder="MM/YY"></td>
                         </tr>
                         <tr>
                             <td><label>CVV</label></td>

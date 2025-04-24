@@ -21,7 +21,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate user input
     $title = trim($_POST["title"]);
     $price = trim($_POST["price"]);
-    $image_url = trim($_POST["image_url"]);
+    $image_path = '';
+
+if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+    $upload_dir = 'uploads/';
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0755, true); // Create folder if it doesn't exist
+    }
+
+    $tmp_name = $_FILES['image_file']['tmp_name'];
+    $name = basename($_FILES['image_file']['name']);
+    $target_path = $upload_dir . uniqid() . '_' . $name;
+
+    if (move_uploaded_file($tmp_name, $target_path)) {
+        $image_path = $target_path;
+    } else {
+        die("Image upload failed.");
+    }
+} else {
+    die("Please upload an image.");
+}
+
     $description = trim($_POST["description"]);
     $user_id = $_SESSION['user_id'];
 
@@ -94,15 +114,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="container">
         <h2>Sell a Product</h2>
-        <form action="sell.php" method="POST">
+        <form action="sell.php" method="POST" enctype="multipart/form-data">
             <label>Title:</label>
             <input type="text" name="title" required>
             
             <label>Price:</label>
             <input type="number" name="price" step="0.01" required>
             
-            <label>Image URL:</label>
-            <input type="text" name="image_url" required>
+            <label>Upload Image:</label>
+            <input type="file" name="image_file" accept="image/*" required>
             
             <label>Description:</label>
             <textarea name="description" required></textarea>
