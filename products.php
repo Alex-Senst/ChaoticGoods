@@ -126,6 +126,24 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin-left: 35px;  /* Adjust the value to your preference */
         }
     </style>
+    <script>
+        function toggleFilters() {
+            var container = document.getElementById("filters-container");
+            if (container.style.display === "none" || container.style.display === "") {
+                container.style.display = "block";
+            } else {
+                container.style.display = "none";
+            }
+        }
+        window.addEventListener("DOMContentLoaded", function () {
+            const hasFilters = <?= json_encode($selected_color || $selected_type || isset($_GET['min_price']) || isset($_GET['max_price'])) ?>;
+            if (hasFilters) {
+                document.getElementById("filters-container").style.display = "block";
+            }
+        });
+
+    </script>
+
 </head>
 <body>
     <div class="sidebar">
@@ -148,37 +166,41 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <form method="GET" class="search-bar">
             <input type="text" name="search" class="form-control" placeholder="Search products..." value="<?= htmlspecialchars($search) ?>">
 
+            <button type="button" class="btn btn-outline-secondary mt-2" onclick="toggleFilters()">Show Filters</button>
+
             <!-- Filter by Color -->
-            <select name="color" class="form-control mt-2">
-                <option value="">Select Color</option>
-                <option value="red" <?= isset($_GET['color']) && $_GET['color'] == 'red' ? 'selected' : '' ?>>Red</option>
-                <option value="orange" <?= isset($_GET['color']) && $_GET['color'] == 'orange' ? 'selected' : '' ?>>Orange</option>
-                <option value="yellow" <?= isset($_GET['color']) && $_GET['color'] == 'yellow' ? 'selected' : '' ?>>Yellow</option>
-                <option value="green" <?= isset($_GET['color']) && $_GET['color'] == 'green' ? 'selected' : '' ?>>Green</option>
-                <option value="blue" <?= isset($_GET['color']) && $_GET['color'] == 'blue' ? 'selected' : '' ?>>Blue</option>
-                <option value="purple" <?= isset($_GET['color']) && $_GET['color'] == 'purple' ? 'selected' : '' ?>>Purple</option>
-                <option value="black" <?= isset($_GET['color']) && $_GET['color'] == 'black' ? 'selected' : '' ?>>Black</option>
-                <option value="white" <?= isset($_GET['color']) && $_GET['color'] == 'white' ? 'selected' : '' ?>>White</option>
-            </select>
+            <div id="filters-container" style="display: none; margin-top: 20px;">
+                <select name="color" class="form-control mt-2">
+                    <option value="">Select Color</option>
+                    <option value="red" <?= isset($_GET['color']) && $_GET['color'] == 'red' ? 'selected' : '' ?>>Red</option>
+                    <option value="orange" <?= isset($_GET['color']) && $_GET['color'] == 'orange' ? 'selected' : '' ?>>Orange</option>
+                    <option value="yellow" <?= isset($_GET['color']) && $_GET['color'] == 'yellow' ? 'selected' : '' ?>>Yellow</option>
+                    <option value="green" <?= isset($_GET['color']) && $_GET['color'] == 'green' ? 'selected' : '' ?>>Green</option>
+                    <option value="blue" <?= isset($_GET['color']) && $_GET['color'] == 'blue' ? 'selected' : '' ?>>Blue</option>
+                    <option value="purple" <?= isset($_GET['color']) && $_GET['color'] == 'purple' ? 'selected' : '' ?>>Purple</option>
+                    <option value="black" <?= isset($_GET['color']) && $_GET['color'] == 'black' ? 'selected' : '' ?>>Black</option>
+                    <option value="white" <?= isset($_GET['color']) && $_GET['color'] == 'white' ? 'selected' : '' ?>>White</option>
+                </select>
 
-            <!-- Filter by Type -->
-            <select name="type" class="form-control mt-2">
-                <option value="">Select Type</option>
-                <option value="book" <?= isset($_GET['type']) && $_GET['type'] == 'book' ? 'selected' : '' ?>>Books</option>
-                <option value="dice" <?= isset($_GET['type']) && $_GET['type'] == 'dice' ? 'selected' : '' ?>>Dice</option>
-                <option value="bag" <?= isset($_GET['type']) && $_GET['type'] == 'bag' ? 'selected' : '' ?>>Bags</option>
-                <option value="sticker" <?= isset($_GET['type']) && $_GET['type'] == 'sticker' ? 'selected' : '' ?>>Stickers</option>
-            </select>
+                <!-- Filter by Type -->
+                <select name="type" class="form-control mt-2">
+                    <option value="">Select Type</option>
+                    <option value="book" <?= isset($_GET['type']) && $_GET['type'] == 'book' ? 'selected' : '' ?>>Books</option>
+                    <option value="dice" <?= isset($_GET['type']) && $_GET['type'] == 'dice' ? 'selected' : '' ?>>Dice</option>
+                    <option value="bag" <?= isset($_GET['type']) && $_GET['type'] == 'bag' ? 'selected' : '' ?>>Bags</option>
+                    <option value="sticker" <?= isset($_GET['type']) && $_GET['type'] == 'sticker' ? 'selected' : '' ?>>Stickers</option>
+                </select>
 
-            <div class="mt-2">
-                <input type="number" name="min_price" class="form-control" placeholder="Min Price" value="<?= isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : '' ?>">
+                <div class="mt-2">
+                    <input type="number" name="min_price" class="form-control" placeholder="Min Price" value="<?= isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : '' ?>">
+                </div>
+                <div class="mt-2">
+                    <input type="number" name="max_price" class="form-control" placeholder="Max Price" value="<?= isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : '' ?>">
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
+                <a href="products.php" class="btn btn-secondary mt-2">Reset Filters</a>
             </div>
-            <div class="mt-2">
-                <input type="number" name="max_price" class="form-control" placeholder="Max Price" value="<?= isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : '' ?>">
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
-            <a href="products.php" class="btn btn-secondary mt-2">Reset Filters</a>
         </form>
 
         <div class="row">
@@ -190,13 +212,6 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="product-info">
                                 <div class="product-title"><?= htmlspecialchars($product['title']) ?></div>
                                 <div class="product-price">$<?= number_format($product['price'], 2) ?></div>
-                                
-                                <?php if (!empty($product['seller_name'])): ?>
-                                    <div class="product-seller">Sold by: <?= htmlspecialchars($product['seller_name']) ?></div>
-                                <?php else: ?>
-                                    <div class="product-seller">Sold by: Admin</div>
-                                <?php endif; ?>
-
                                 <a href="details.php?id=<?= $product['product_id'] ?>" class="btn btn-link">More Info</a>
                                 <div class="product-buttons">
                                     <form action="cart.php" method="POST">
