@@ -20,15 +20,15 @@ $user = $result->fetch_assoc();
 // Fetch order history
 //$order_query = "SELECT order_date, status FROM orders WHERE user_id = ? ORDER BY order_date DESC";
 $order_query = "
-    SELECT orders.order_date, order_details.product_name, orders.status
-    FROM orders
-    JOIN order_details ON orders.order_id = order_details.order_id
-    WHERE orders.user_id = ? 
-    ORDER BY orders.order_date DESC";
+    SELECT order_id, order_date, status 
+    FROM orders 
+    WHERE user_id = ? 
+    ORDER BY order_date DESC";
 $order_stmt = $con->prepare($order_query);
 $order_stmt->bind_param("i", $user_id);
 $order_stmt->execute();
 $order_result = $order_stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -85,8 +85,8 @@ $order_result = $order_stmt->get_result();
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Order #</th>
                         <th>Date</th>
-                        <th>Product</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -94,11 +94,15 @@ $order_result = $order_stmt->get_result();
                 <tbody>
                     <?php while ($order = $order_result->fetch_assoc()): ?>
                         <tr>
+                            <td>
+                                <a href="order_details.php?order_id=<?php echo urlencode($order['order_id']); ?>">
+                                    #<?php echo htmlspecialchars($order['order_id']); ?>
+                                </a>
+                            </td>
                             <td><?php echo htmlspecialchars($order['order_date']); ?></td>
-                            <td><?php echo htmlspecialchars($order['product_name']); ?></td>
                             <td><?php echo htmlspecialchars($order['status']); ?></td>
                             <td>
-                                <a href="reorder.php?product=<?php echo urlencode($order['product_name']); ?>" class="btn btn-primary btn-sm">Reorder</a>
+                            <a href="reorder.php?order_id=<?php echo $order['order_id']; ?>" class="btn btn-primary btn-sm">Reorder</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -106,6 +110,7 @@ $order_result = $order_stmt->get_result();
             </table>
         </div>
     </div>
+
     <footer>
         <p>ChaoticGoods</p>
         <p><a href="about.php">About</a></p>
