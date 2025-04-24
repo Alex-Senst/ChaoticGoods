@@ -13,9 +13,9 @@
             min-height: 100vh;
         }
         .container {
-            margin-right: 220px;
-            padding: 20px;
+            justify-content: center;
             flex-grow: 1;
+            padding-left: 70px;
         }
     </style>
 </head>
@@ -51,7 +51,7 @@
                     <p>Alex</p>
                 </div>
                 <h2>About Us</h2>
-                <div class="content">
+                <div class="text">
                     <p>Hello there! We are a couple of small business owners looking to sell products to DnD lovers! Look around if you're interested!</p>
                 </div>
             </div>
