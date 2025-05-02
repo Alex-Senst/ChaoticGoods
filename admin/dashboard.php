@@ -98,8 +98,7 @@ if ($user['role'] !== 'admin') {
 
                 <label for="role" style="display: block; margin-bottom: 5px;">Role</label>
                 <select name="role" id="role" style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
-                    <option value="buyer">Buyer</option>
-                    <option value="seller">Seller</option>
+                    <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
 
