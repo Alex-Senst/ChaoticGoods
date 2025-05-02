@@ -5,6 +5,7 @@ Main Features:
 - Product page with search and filter functionality
 - Shopping cart and order placement system
 - Admin panel for product & order management
+  
 Tech Stack:
 - PHP
 - MySQL (phpMyAdmin)
