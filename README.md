@@ -11,7 +11,7 @@ Tech Stack:
 - MySQL (phpMyAdmin)
 - HTML/CSS (Bootstrap 4)
 
-Our website is hosted live at this link: http://54.219.133.86 
+Our website is hosted live using Amazon Web Services at this link: http://54.219.133.86 
 
 If you want to edit it yourself, follow the setup instructions below.
 Database: The schema.sql file is included to set up your database tables. There is some data already stored within the file, so only keep what is desired.
