@@ -11,6 +11,9 @@ Tech Stack:
 - MySQL (phpMyAdmin)
 - HTML/CSS (Bootstrap 4)
 
+Our website is hosted live at this link: http://54.219.133.86 
+
+If you want to edit it yourself, follow the setup instructions below.
 Database: The schema.sql file is included to set up your database tables. There is some data already stored within the file, so only keep what is desired.
 Make sure to import this into phpMyAdmin before running the app.
 
@@ -29,7 +32,7 @@ Setup Instructions:
 
 Built by Alex Senst and Shan Peck for educational purposes.
 
-Instructor: Hasan Jamil
+Instructor: Hasan Jamil, Mahib Ornob
 
 Course: CS360: Database Systems
 
